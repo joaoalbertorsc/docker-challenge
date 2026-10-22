@@ -1,0 +1,49 @@
+{
+  "info": {
+    "name": "BoxOffice",
+    "description": "Calls the catalog-service API running in Docker.\n\nThe `baseUrl` collection variable must point to the host port published with `docker run -p <host-port>:8080`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "List shows",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('responds with 200 OK', () => pm.response.to.have.status(200));",
+              "",
+              "pm.test('returns the list of shows', () => {",
+              "    const shows = pm.response.json();",
+              "    pm.expect(shows).to.be.an('array').that.is.not.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/shows",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "shows"]
+        }
+      }
+    }
+  ]
+}

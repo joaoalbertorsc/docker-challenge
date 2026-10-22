@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: catalog-service
+  # No datasource URL: Spring Boot starts an in-memory H2 database because H2 is on the classpath.
+  # It is created from schema.sql and data.sql on every startup, and disappears when the application stops.
+  jpa:
+    hibernate:
+      # The tables come from schema.sql; Hibernate only checks that the entities match them
+      ddl-auto: validate
+    open-in-view: false
+  jackson:
+    mapper:
+      # Keep JSON fields in the order they are declared in the model, starting with the id
+      sort-properties-alphabetically: false
+
+server:
+  # The port the API listens on inside the container; publish it with `docker run -p <host-port>:8080`
+  port: 8080
